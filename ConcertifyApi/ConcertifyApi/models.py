@@ -31,3 +31,13 @@ class Location(models.Model):
 
 	class Meta:
 		ordering = ('name',)
+
+#Comment information
+class Comment(models.Model):
+	commentID = models.FloatField(default=0)
+	commentOwner = models.CharField(max_length=36, blank=True, default='')
+	content = models.CharField(max_length=500, blank=True, default='')
+	voteCount = models.FloatField(default=0)
+
+	class Meta:
+		ordering = ('voteCount',)
