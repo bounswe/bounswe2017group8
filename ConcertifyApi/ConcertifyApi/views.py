@@ -68,7 +68,7 @@ class TagList(APIView):
     def post(self, request, format=None):
         serializer = TagSerializer(data=request.data)
         if serializer.is_valid():
-            Tags = Tag.objects.all()
+            tags = Tag.objects.all()
             for tag in tags:
                 if tag.text == serializer.validated_data.get('text'):
                     print("Existing tag, send error.")
