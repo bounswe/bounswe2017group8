@@ -31,3 +31,11 @@ class Location(models.Model):
 
 	class Meta:
 		ordering = ('name',)
+
+# Tag information
+class Tag(models.Model):
+	ID = models.IntegerField(default=0)
+	text = models.CharField(max_length=20, blank=True, default='')
+
+	class Meta:
+		ordering = ('ID',)

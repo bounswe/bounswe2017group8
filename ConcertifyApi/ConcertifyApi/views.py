@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from ConcertifyApi.models import User, Musician, Location
-from ConcertifyApi.serializers import UserSerializer, MusicianSerializer, LocationSerializer
+from ConcertifyApi.models import User, Musician, Location, Tag
+from ConcertifyApi.serializers import UserSerializer, MusicianSerializer, LocationSerializer, TagSerializer 
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -55,6 +55,25 @@ class LocationList(APIView):
                 if location.address == serializer.validated_data.get('address'):
                     print("Existing address, send error.")
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class TagList(APIView):
+    def get(self, request, format=None):
+        tags = Tag.objects.all()
+        serializer = TagSerializer(tags, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = TagSerializer(data=request.data)
+        if serializer.is_valid():
+            Tags = Tag.objects.all()
+            for tag in tags:
+                if tag.text == serializer.validated_data.get('text'):
+                    print("Existing tag, send error.")
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
