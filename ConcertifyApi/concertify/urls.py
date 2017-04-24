@@ -6,4 +6,5 @@ from ConcertifyApi import views
 urlpatterns = [
     url(r'^users/$', views.UserList.as_view()),
     url(r'^musicians/$', views.MusicianList.as_view()),
+    url(r'^locations/$', views.LocationList.as_view()),
 ]

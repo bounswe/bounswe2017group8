@@ -21,3 +21,13 @@ class Musician(models.Model):
 
 	class Meta:
 		ordering = ('name',)
+
+# Location information
+class Location(models.Model):
+	name = models.CharField(max_length=36, blank=True, default='')
+	address = models.CharField(max_length=24, blank=True, default='')
+	latitude = models.FloatField(default=0)
+	longtitude = models.FloatField(default=0)
+
+	class Meta:
+		ordering = ('name',)
