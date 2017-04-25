@@ -9,6 +9,24 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 
+class ConcertList(APIView):
+    def get(self,request,format=None):
+	concerts=Concert.objects.all()
+	serializer=ConcertSerializer(concerts, many=True)
+	return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = ConcertSerializer(data=request.data)
+        if serializer.is_valid():
+            concert = Concert.objects.all()
+            for concert in concerts:
+                if concert.name == serializer.validated_data.get('name'):
+                    print("Existing name, send error.")
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
 class UserList(APIView):
     def get(self, request, format=None):
         users = User.objects.all()

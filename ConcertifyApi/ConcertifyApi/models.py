@@ -39,3 +39,13 @@ class Tag(models.Model):
 
 	class Meta:
 		ordering = ('ID',)
+
+
+# Concert information
+class Concert(models.Model):
+	name = models.CharField(max_length=36, blank=True, default='')
+        location = models.CharField(max_length=24, blank=True, default='')
+	musician = models.CharField(max_length=24, blank=True, default='')
+
+        class Meta:
+                ordering = ('name',)
