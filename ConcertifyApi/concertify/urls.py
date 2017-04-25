@@ -9,4 +9,5 @@ urlpatterns = [
     url(r'^musicians/$', views.MusicianList.as_view()),
     url(r'^locations/$', views.LocationList.as_view()),
     url(r'^tags/$', views.TagList.as_view()),
+    url(r'^mainHalls/$', views.MainHallList.as_view()),
 ]
