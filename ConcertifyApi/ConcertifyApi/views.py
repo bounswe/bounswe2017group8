@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from ConcertifyApi.models import User, Musician, Location, Tag
+from ConcertifyApi.models import User, Musician, Location, Concert, Tag
 from ConcertifyApi.serializers import UserSerializer, MusicianSerializer, LocationSerializer, TagSerializer 
 from rest_framework import generics, status
 from rest_framework.views import APIView
