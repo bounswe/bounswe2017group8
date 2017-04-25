@@ -49,11 +49,3 @@ class Concert(models.Model):
 
         class Meta:
                 ordering = ('name',)
-
-# Main Hall information
-class MainHall(models.Model):
-	name = models.CharField(max_length=36, blank=True, default='')
-	address = models.CharField(max_length=24, blank=True, default='')
-	capacity = models.IntegerField(default=0)
-	class Meta:
-                ordering = ('name',)
