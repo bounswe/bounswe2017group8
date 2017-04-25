@@ -3,7 +3,7 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 from ConcertifyApi.models import User, Musician, Location, Tag
-from ConcertifyApi.serializers import UserSerializer, MusicianSerializer, LocationSerializer, TagSerializer 
+from ConcertifyApi.serializers import UserSerializer, MusicianSerializer, LocationSerializer, TagSerializer, ConcertSerializer
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -11,9 +11,9 @@ from django.http import Http404
 
 class ConcertList(APIView):
     def get(self,request,format=None):
-	concerts=Concert.objects.all()
-	serializer=ConcertSerializer(concerts, many=True)
-	return Response(serializer.data)
+        concerts=Concert.objects.all()
+        serializer=ConcertSerializer(concerts, many=True)
+        return Response(serializer.data)
 
     def post(self, request, format=None):
         serializer = ConcertSerializer(data=request.data)
