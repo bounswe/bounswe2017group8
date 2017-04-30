@@ -2,8 +2,8 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import render
-from ConcertifyApi.models import User, Musician, Location, Concert, Tag
-from ConcertifyApi.serializers import UserSerializer, MusicianSerializer, LocationSerializer, TagSerializer 
+from ConcertifyApi.models import User, Musician, Location, Concert, Tag, Comment
+from ConcertifyApi.serializers import UserSerializer, MusicianSerializer, LocationSerializer, TagSerializer, ConcertSerializer, CommentSerializer
 from rest_framework import generics, status
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -92,6 +92,24 @@ class TagList(APIView):
                     print("Existing tag, send error.")
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CommentList(APIView):
+    def get(self, request, format=None):
+        comments = Comment.objects.all()
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
+            comments = Comment.objects.all()
+            for comment in comments:
+                if comment.commentID == serializer.validated_data.get('commentID'):
+                    print("Existing comment ID, send error.")
+                    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

@@ -4,9 +4,10 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from ConcertifyApi import views
 
 urlpatterns = [
-    url(r'^concerts',views.ConcertList.as_view()),
+    url(r'^concerts/$',views.ConcertList.as_view()),
     url(r'^users/$', views.UserList.as_view()),
     url(r'^musicians/$', views.MusicianList.as_view()),
     url(r'^locations/$', views.LocationList.as_view()),
     url(r'^tags/$', views.TagList.as_view()),
+    url(r'^comments/$', views.CommentList.as_view()),
 ]
