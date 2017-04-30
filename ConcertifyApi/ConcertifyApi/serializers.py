@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from ConcertifyApi.models import User, Musician, Location, Tag, Concert
+from ConcertifyApi.models import User, Musician, Location, Tag, Concert, Comment
 
 class ConcertSerializer(serializers.ModelSerializer):
 	class Meta:
@@ -25,4 +25,9 @@ class LocationSerializer(serializers.ModelSerializer):
 class TagSerializer(serializers.ModelSerializer):
 	class Meta:
 		model = Tag
-		fields = ('ID', 'text')
+		fields = ('tagID', 'text')
+
+class CommentSerializer(serializers.ModelSerializer):
+	class Meta:
+		model = Comment
+		fields = ('commentID', 'content', 'user')

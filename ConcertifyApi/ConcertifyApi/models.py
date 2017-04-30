@@ -34,11 +34,11 @@ class Location(models.Model):
 
 # Tag information
 class Tag(models.Model):
-	ID = models.IntegerField(default=0)
+	tagID = models.IntegerField(default=0)
 	text = models.CharField(max_length=20, blank=True, default='')
 
 	class Meta:
-		ordering = ('ID',)
+		ordering = ('tagID',)
 
 
 # Concert information
@@ -49,3 +49,12 @@ class Concert(models.Model):
 
         class Meta:
                 ordering = ('name',)
+
+# Comment information
+class Comment(models.Model):
+	commentID=models.IntegerField(default=0)
+	content = models.CharField(max_length=256, blank=True, default='')
+	user = models.CharField(max_length=24, blank=True, default='defaultuser')
+
+	class Meta:
+		ordering = ('commentID',)
