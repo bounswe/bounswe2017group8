@@ -11,8 +11,8 @@ class User(models.Model):
 	favorite_musician = models.CharField(max_length=36, blank=True, default='')
 
 	class Meta:
-		ordering = ('username',)
-
+                ordering = ('username',)
+                
 # Musician information
 class Musician(models.Model):
 	name = models.CharField(max_length=36, blank=True, default='')
@@ -34,18 +34,26 @@ class Location(models.Model):
 
 # Tag information
 class Tag(models.Model):
-	ID = models.IntegerField(default=0)
+	tagID = models.IntegerField(default=0)
 	text = models.CharField(max_length=20, blank=True, default='')
 
 	class Meta:
-		ordering = ('ID',)
+		ordering = ('tagID',)
 
 
 # Concert information
 class Concert(models.Model):
-	name = models.CharField(max_length=36, blank=True, default='')
+        name = models.CharField(max_length=50, blank=True, default='')
         location = models.CharField(max_length=24, blank=True, default='')
-	musician = models.CharField(max_length=24, blank=True, default='')
+        musician = models.CharField(max_length=24, blank=True, default='')
 
         class Meta:
+                ordering = ('name',)
+
+# Main Hall information
+class MainHall(models.Model):
+	name = models.CharField(max_length=36, blank=True, default='')
+	address = models.CharField(max_length=24, blank=True, default='')
+	capacity = models.IntegerField(default=0)
+	class Meta:
                 ordering = ('name',)
