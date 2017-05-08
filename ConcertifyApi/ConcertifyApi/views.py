@@ -3,8 +3,8 @@ from __future__ import unicode_literals
 
 from django.shortcuts import render
 
-from ConcertifyApi.models import User, Musician, Location, Tag, Concert, MainHall
-from ConcertifyApi.serializers import UserSerializer, MusicianSerializer, LocationSerializer, TagSerializer, ConcertSerializer, MainHallSerializer
+from ConcertifyApi.models import User, Musician, Location, Tag, Concert, MainHall, Comment
+from ConcertifyApi.serializers import UserSerializer, MusicianSerializer, LocationSerializer, TagSerializer, ConcertSerializer, MainHallSerializer, CommentSerializer
 
 from rest_framework import generics, status
 from rest_framework.views import APIView
@@ -232,6 +232,19 @@ class MainHallList(APIView):
             for mainHall in mainHalls:
                 if mainHall.name == serializer.validated_data.get('name'):
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CommentsList(APIView):
+    def get(self, request, format=None):
+        comments = Comment.objects.all()
+        serializer = CommentSerializer(comments, many=True)
+        return Response(serializer.data)
+
+    def post(self, request, format=None):
+        serializer = CommentSerializer(data=request.data)
+        if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

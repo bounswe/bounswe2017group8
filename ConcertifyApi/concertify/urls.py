@@ -24,4 +24,7 @@ urlpatterns = [
 
     # URLs for MainHall class
     url(r'^mainhalls/$', views.MainHallList.as_view()),
+    # URLs for comments
+    url(r'^comments/$', views.CommentsList.as_view()),
+
 ]
