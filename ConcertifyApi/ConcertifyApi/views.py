@@ -15,24 +15,38 @@ from django.http import Http404
 List all users or create a new user.
 """
 class UserList(APIView):
+    # Define the GET method for listing users
     def get(self, request, format=None):
+        # Get all the users and create a serializer for them
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
 
+        # Add id data to the serializer
         for user in serializer.data:
-            user['pk'] = users = User.objects.get(username=user['username']).pk
+            user['pk'] = User.objects.get(username=user['username']).pk
+
+        # Return serializer content
         return Response(serializer.data)
 
+    # Define POST method for creating a new user
     def post(self, request, format=None):
+        # Create a new user serializer with given data
         serializer = UserSerializer(data=request.data)
+
+        # If given data is valid save new user
         if serializer.is_valid():
             users = User.objects.all()
+
+            # Check if there exists a user with the same username
             for user in users:
                 if user.username == serializer.validated_data.get('username'):
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+            # All is OK
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        # If data is invalid return BAD REQUEST
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
 
 """
@@ -67,6 +81,11 @@ class MusicianList(APIView):
     def get(self, request, format=None):
         musicians = Musician.objects.all()
         serializer = MusicianSerializer(musicians, many=True)
+
+        # Add id data to the serializer
+        for musician in serializer.data:
+            musician['pk'] = Musician.objects.filter(name=musician['name'])[0].pk
+
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -75,6 +94,31 @@ class MusicianList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class MusicianDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Musician.objects.get(pk=pk)
+        except Musician.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        musician = self.get_object(pk)
+        serializer = MusicianSerializeru(musician)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        musician = self.get_object(pk)
+        serializer = MusicianSerializer(musician, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        musician = self.get_object(pk)
+        musician.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class LocationList(APIView):
     def get(self, request, format=None):

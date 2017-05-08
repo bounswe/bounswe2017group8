@@ -11,6 +11,10 @@ from ConcertifyApi.models import User
 class UserTestCase(TestCase):
     # Test the functionality of listing users
     def test_list_users(self):
+        user_info = {'username': 'list_temp_dummy', 'name': 'Temporary Dummy User', 'location': 'Dummistan', 'favorite_musician': 'Rolling Dummies'}
+
+        create_response = requests.post('http://127.0.0.1:8000/users/', auth=HTTPBasicAuth('admin', 'test1234'), data = user_info)
+
         # Make a request to list users
         list_response = requests.get('http://127.0.0.1:8000/users', auth=HTTPBasicAuth('admin', 'test1234'))
 
@@ -20,15 +24,24 @@ class UserTestCase(TestCase):
         # Check if the dummy user is found and its information is correct
         found = False
         for user_data in list_response.json():
-            if user_data['username'] == 'dummy':
+            if user_data['username'] == 'list_temp_dummy':
                 found = True
                 # Assert that the user info is correct
-                self.assertEqual(user_data['name'], 'Dummy User', 'Dummy user is found, but the name is wrong.')
+                self.assertEqual(user_data['name'], 'Temporary Dummy User', 'Dummy user is found, but the name is wrong.')
                 self.assertEqual(user_data['location'], 'Dummistan', 'Dummy user is found, but the location is wrong.')
                 self.assertEqual(user_data['favorite_musician'], 'Rolling Dummies', 'Dummy user is found, but the favorite musician is wrong.')
 
         # Assert that the dummy user is found
         self.assertTrue(found, 'Dummy user could not be found.')
+
+        # Cleanup the dummy user data
+        search_pk = 0
+        for user_data in list_response.json():
+            if user_data['username'] == 'list_temp_dummy':
+                search_pk = user_data['pk']
+
+        delete_url = 'http://127.0.0.1:8000/users/' + str(search_pk) + '/'
+        requests.delete(delete_url, auth=HTTPBasicAuth('admin', 'test1234'))
 
     def test_delete_user(self):
         user_info = {'username': 'delete_temp_dummy', 'name': 'Temporary Dummy User', 'location': 'Dummistan', 'favorite_musician': 'Rolling Dummies'}
@@ -90,6 +103,53 @@ class UserTestCase(TestCase):
     def test_create_existing_user(self):
         user_info = {'username': 'dummy', 'name': 'Dummy User', 'location': 'Dummistan', 'favorite_musician': 'Rolling Dummies'}
 
-        create_response = requests.post('http://127.0.0.1:8000/users/', auth=HTTPBasicAuth('admin', 'test1234'), data = user_info)
+        create_response_1 = requests.post('http://127.0.0.1:8000/users/', auth=HTTPBasicAuth('admin', 'test1234'), data = user_info)
+        create_response_2 = requests.post('http://127.0.0.1:8000/users/', auth=HTTPBasicAuth('admin', 'test1234'), data = user_info)
 
-        self.assertEqual(create_response.status_code // 100, 4, 'Creating an existing user should return a bad request error: {}'.format(create_response.status_code))
+        self.assertEqual(create_response_2.status_code // 100, 4, 'Creating an existing user should return a bad request error: {}'.format(create_response_2.status_code))
+
+        list_response = requests.get('http://127.0.0.1:8000/users/', auth=HTTPBasicAuth('admin', 'test1234'))
+
+        # Cleanup the dummy user data
+        search_pk = 0
+        for user_data in list_response.json():
+            if user_data['username'] == 'dummy':
+                search_pk = user_data['pk']
+
+        delete_url = 'http://127.0.0.1:8000/users/' + str(search_pk) + '/'
+        requests.delete(delete_url, auth=HTTPBasicAuth('admin', 'test1234'))
+
+"""
+Test cases for the Musician class
+"""
+class MusicianTestCase(TestCase):
+    # Test the functionality of listing musicians
+    def test_list_musicians(self):
+        user_info = {'name': 'Dummy Musician', 'genre': 'Dummy Genre', 'tag': 'Dummy Tag'}
+        create_response = requests.post('http://127.0.0.1:8000/musicians/', auth=HTTPBasicAuth('admin', 'test1234'), data = user_info)
+
+        # Make a request to list musicians
+        list_response = requests.get('http://127.0.0.1:8000/musicians', auth=HTTPBasicAuth('admin', 'test1234'))
+
+        # Check if the status code of the was a success
+        self.assertEqual(list_response.status_code // 100, 2, 'HTTP request response indicates an error code.')
+
+        # Check if the dummy user is found and its information is correct
+        found = False
+        for user_data in list_response.json():
+            if user_data['name'] == user_info['name']:
+                found = True
+                # Assert that the user info is correct
+                self.assertEqual(user_data['genre'], user_info['genre'], 'Dummy user is found, but the location is wrong.')
+                self.assertEqual(user_data['tag'], user_info['tag'], 'Dummy user is found, but the favorite musician is wrong.')
+
+        # Assert that the dummy user is found
+        self.assertTrue(found, 'Dummy musician could not be found.')
+
+        search_pk = 0
+        for user_data in list_response.json():
+            if user_data['name'] == 'Dummy Musician':
+                search_pk = user_data['pk']
+
+        delete_url = 'http://127.0.0.1:8000/musicians/' + str(search_pk) + '/'
+        requests.delete(delete_url, auth=HTTPBasicAuth('admin', 'test1234'))
