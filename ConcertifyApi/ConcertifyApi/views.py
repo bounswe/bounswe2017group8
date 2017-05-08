@@ -11,10 +11,16 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from django.http import Http404
 
+"""
+List all users or create a new user.
+"""
 class UserList(APIView):
     def get(self, request, format=None):
         users = User.objects.all()
         serializer = UserSerializer(users, many=True)
+
+        for user in serializer.data:
+            user['pk'] = users = User.objects.get(username=user['username']).pk
         return Response(serializer.data)
 
     def post(self, request, format=None):
@@ -23,12 +29,39 @@ class UserList(APIView):
             users = User.objects.all()
             for user in users:
                 if user.username == serializer.validated_data.get('username'):
-                    print("Existing username, send error.")
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST) 
+
+"""
+View, update or delete a single user.
+"""
+class UserDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return User.objects.get(pk=pk)
+        except User.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user)
+        return Response(serializer.data)
+
+    def put(self, request, pk, format=None):
+        user = self.get_object(pk)
+        serializer = UserSerializer(user, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk, format=None):
+        user = self.get_object(pk)
+        user.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
 
 class MusicianList(APIView):
     def get(self, request, format=None):
@@ -55,7 +88,6 @@ class LocationList(APIView):
             locations = Location.objects.all()
             for location in locations:
                 if location.address == serializer.validated_data.get('address'):
-                    print("Existing address, send error.")
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -73,7 +105,6 @@ class TagList(APIView):
             tags = Tag.objects.all()
             for tag in tags:
                 if tag.text == serializer.validated_data.get('text'):
-                    print("Existing tag, send error.")
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
             serializer.save()
@@ -92,7 +123,6 @@ class ConcertList(APIView):
             concert = Concert.objects.all()
             for concert in concerts:
                 if concert.name == serializer.validated_data.get('name'):
-                    print("Existing name, send error.")
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -110,7 +140,6 @@ class MainHallList(APIView):
             mainHalls = MainHall.objects.all()
             for mainHall in mainHalls:
                 if mainHall.name == serializer.validated_data.get('name'):
-                    print("Existing main hall place, send error.")
                     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
