@@ -77,8 +77,14 @@ class UserDetail(APIView):
         user.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
+
+"""
+List all musicians or create a new musician.
+"""
 class MusicianList(APIView):
+    # Define the GET method for listing users
     def get(self, request, format=None):
+        # Get all the users and create a serializer for them
         musicians = Musician.objects.all()
         serializer = MusicianSerializer(musicians, many=True)
 
@@ -86,13 +92,22 @@ class MusicianList(APIView):
         for musician in serializer.data:
             musician['pk'] = Musician.objects.filter(name=musician['name'])[0].pk
 
+        # Return serializer content
         return Response(serializer.data)
 
+    # Define POST method for creating a new musician
     def post(self, request, format=None):
+        # Create a new musician serializer with given data
         serializer = MusicianSerializer(data=request.data)
+
+        # If given data is valid save new musician
         if serializer.is_valid():
             serializer.save()
+
+            # All is OK
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        # If data is invalid return BAD REQUEST
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 class MusicianDetail(APIView):
@@ -102,11 +117,13 @@ class MusicianDetail(APIView):
         except Musician.DoesNotExist:
             raise Http404
 
+    # Return information of a specific musician
     def get(self, request, pk, format=None):
         musician = self.get_object(pk)
         serializer = MusicianSerializeru(musician)
         return Response(serializer.data)
 
+    # Modify a musician
     def put(self, request, pk, format=None):
         musician = self.get_object(pk)
         serializer = MusicianSerializer(musician, data=request.data)
@@ -115,6 +132,7 @@ class MusicianDetail(APIView):
             return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    # Delete a musician
     def delete(self, request, pk, format=None):
         musician = self.get_object(pk)
         musician.delete()
@@ -136,6 +154,35 @@ class LocationList(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class LocationDetail(APIView):
+    def get_object(self, pk):
+        try:
+            return Location.objects.get(pk=pk)
+        except Location.DoesNotExist:
+            raise Http404
+
+    # Return information of a specific location
+    def get(self, request, pk, format=None):
+        location = self.get_object(pk)
+        serializer = LocationSerializer(location)
+        return Response(serializer.data)
+
+    # Modify a location
+    def put(self, request, pk, format=None):
+        location = self.get_object(pk)
+        serializer = LocationSerializer(location, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    # Delete a location
+    def delete(self, request, pk, format=None):
+        location = self.get_object(pk)
+        location.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
 
 class TagList(APIView):
     def get(self, request, format=None):

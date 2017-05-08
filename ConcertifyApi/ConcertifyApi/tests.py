@@ -8,6 +8,9 @@ from requests.auth import HTTPBasicAuth
 
 from ConcertifyApi.models import User
 
+"""
+Test cases for the User class
+"""
 class UserTestCase(TestCase):
     # Test the functionality of listing users
     def test_list_users(self):
@@ -125,8 +128,8 @@ Test cases for the Musician class
 class MusicianTestCase(TestCase):
     # Test the functionality of listing musicians
     def test_list_musicians(self):
-        user_info = {'name': 'Dummy Musician', 'genre': 'Dummy Genre', 'tag': 'Dummy Tag'}
-        create_response = requests.post('http://127.0.0.1:8000/musicians/', auth=HTTPBasicAuth('admin', 'test1234'), data = user_info)
+        musician_info = {'name': 'Dummy Musician', 'genre': 'Dummy Genre', 'tag': 'Dummy Tag'}
+        create_response = requests.post('http://127.0.0.1:8000/musicians/', auth=HTTPBasicAuth('admin', 'test1234'), data = musician_info)
 
         # Make a request to list musicians
         list_response = requests.get('http://127.0.0.1:8000/musicians', auth=HTTPBasicAuth('admin', 'test1234'))
@@ -134,22 +137,59 @@ class MusicianTestCase(TestCase):
         # Check if the status code of the was a success
         self.assertEqual(list_response.status_code // 100, 2, 'HTTP request response indicates an error code.')
 
-        # Check if the dummy user is found and its information is correct
+        # Check if the dummy usemusician is found and its information is correct
         found = False
-        for user_data in list_response.json():
-            if user_data['name'] == user_info['name']:
+        for musician_data in list_response.json():
+            if musician_data['name'] == musician_info['name']:
                 found = True
                 # Assert that the user info is correct
-                self.assertEqual(user_data['genre'], user_info['genre'], 'Dummy user is found, but the location is wrong.')
-                self.assertEqual(user_data['tag'], user_info['tag'], 'Dummy user is found, but the favorite musician is wrong.')
+                self.assertEqual(musician_data['genre'], musician_info['genre'], 'Dummy musician is found, but the genre is wrong.')
+                self.assertEqual(musician_data['tag'], musician_info['tag'], 'Dummy musician is found, but the tag is wrong.')
 
         # Assert that the dummy user is found
         self.assertTrue(found, 'Dummy musician could not be found.')
 
         search_pk = 0
-        for user_data in list_response.json():
-            if user_data['name'] == 'Dummy Musician':
-                search_pk = user_data['pk']
+        for musician_data in list_response.json():
+            if musician_data['name'] == 'Dummy Musician':
+                search_pk = musician_data['pk']
 
         delete_url = 'http://127.0.0.1:8000/musicians/' + str(search_pk) + '/'
         requests.delete(delete_url, auth=HTTPBasicAuth('admin', 'test1234'))
+
+"""
+Test cases for the Location class
+"""
+class LocationTestCase(TestCase):
+    # Test the functionality of listing locations
+    def test_list_location(self):
+        # Make a request to list locations
+        list_response = requests.get('http://127.0.0.1:8000/locations/', auth=HTTPBasicAuth('admin', 'test1234'))
+
+        # Check if the status code of the was a success
+        self.assertEqual(list_response.status_code // 100, 2, 'HTTP request response indicates an error code.')
+
+"""
+Test cases for the Concert class
+"""
+class ConcertTestCase(TestCase):
+    # Test the functionality of listing concerts
+    def test_list_concert(self):
+        # Make a request to list concerts
+        list_response = requests.get('http://127.0.0.1:8000/concerts/', auth=HTTPBasicAuth('admin', 'test1234'))
+
+        # Check if the status code of the was a success
+        self.assertEqual(list_response.status_code // 100, 2, 'HTTP request response indicates an error code.')
+
+"""
+Test cases for the Main Hall class
+"""
+class MainHallTestCase(TestCase):
+    # Test the functionality of listing main halls
+    def test_list_mainhall(self):
+        # Make a request to list main halls
+        list_response = requests.get('http://127.0.0.1:8000/mainhalls/', auth=HTTPBasicAuth('admin', 'test1234'))
+
+        # Check if the status code of the was a success
+        self.assertEqual(list_response.status_code // 100, 2, 'HTTP request response indicates an error code.')
+
