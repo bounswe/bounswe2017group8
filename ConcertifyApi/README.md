@@ -1,8 +1,8 @@
-## Concertify API
+# Concertify API
 
 Python - Django REST framework is used and to obtain the development environment the following page may be checked: http://www.django-rest-framework.org/#installation
 
-### **Quick Tutorial:**  
+## **Quick Tutorial:**  
 **1.** Install Python
  - On Windows, download from https://www.python.org/downloads and do not forget the check **Add Python to environment variables** (Default is unchecked)  
  - On Linux, Mac: `pip install django`  
@@ -34,7 +34,7 @@ You may use Postman program to make _GET_ , _POST_ and _DELETE_ requests.
 **8.** Install Postman ([Shortcut](https://www.getpostman.com/))  
 **9.** You shall need an account to post data to http://127.0.0.1:8000/. Enter the credentials (admin:test1234) as `Basic Auth` under Authorization tab.
 
-### **Unit Tests:**  
+## **Unit Tests:**  
 In order to run available unit tests,  
 From command-line,  
 `cd (Path of X)/bounswe2017group8/ConcertifyApi`  
