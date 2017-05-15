@@ -60,7 +60,7 @@ Existing unit test classes and their corresponding test methods are:
 **5. MainHallTestCase**
 * test_list_mainhall
 
-## **Enpoint Reference**
+## **Enpoint Reference:**
 |Method|Endpoint|Usage|Returns|
 |------|--------|-----|-------|
 |GET||||
