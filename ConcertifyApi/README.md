@@ -70,7 +70,7 @@ Existing unit test classes and their corresponding test methods are:
 
 ## **Endpoint Reference:**
 
-Web API Base URL: http://52.59.27.221:8000
+Web API Base URL: http://52.59.27.221
 
 |Method|Endpoint|Usage|Returns|Auth|
 |------|--------|-----|-------|----|
