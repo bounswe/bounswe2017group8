@@ -90,4 +90,6 @@ Web API Base URL: http://52.59.27.221
 |GET|/mainhalls|Get features of all recorded main event halls|Array of MainHall objects (JSON)| |
 |POST|/mainhalls/|Save a MainHall object|HTTP_201:Currently saved MainHall object features  HTTP_400:Bad request|Basic Auth|
 |GET|/tags|Get features of all recorded tags|Array of Tag objects (JSON)| |
-|POST|/tags/|Save a Tag object|HTTP_201:Currently saved Tag object features  HTTP_400:Bad request|Basic
+|POST|/tags/|Save a Tag object|HTTP_201:Currently saved Tag object features  HTTP_400:Bad request|Basic Auth|
+|GET|/locations|Get features of all recorded locations|Array of Location objects (JSON)| |
+|POST|/locations/|Save a Location object|HTTP_201:Currently saved Location object features  HTTP_400:Bad request|Basic Auth|
