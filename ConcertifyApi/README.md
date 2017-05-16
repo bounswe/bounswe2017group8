@@ -26,6 +26,14 @@ _GET_ , _POST_ and  requests are available for those classes:
 * **User** ('name', 'username', 'location', 'favorite_musician') ( _DELETE_ request is also available)
 * **Musician** ('name', 'genre', 'tag')
 * **Location** ('name', 'address', 'latitude', 'longtitude')
+
+| Key        | Value Type | Value Description        |
+|------------|------------|--------------------------|
+| name       | string     | Name of the location    |
+| address    | string     | Open address of the location |
+| latitude   | int        | Latitude of the address     |
+| longtitude | int        | Longtitude of the address      |
+
 * **Tag** ('tagID', 'text')
 
 | Key      | Value Type | Value Description         |
@@ -82,4 +90,4 @@ Web API Base URL: http://52.59.27.221
 |GET|/mainhalls|Get features of all recorded main event halls|Array of MainHall objects (JSON)| |
 |POST|/mainhalls/|Save a MainHall object|HTTP_201:Currently saved MainHall object features  HTTP_400:Bad request|Basic Auth|
 |GET|/tags|Get features of all recorded tags|Array of Tag objects (JSON)| |
-|POST|/tags/|Save a Tag object|HTTP_201:Currently saved Tag object features  HTTP_400:Bad request|Basic Auth|
+|POST|/tags/|Save a Tag object|HTTP_201:Currently saved Tag object features  HTTP_400:Bad request|Basic
