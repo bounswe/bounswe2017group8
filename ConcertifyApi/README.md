@@ -28,10 +28,10 @@ _GET_ , _POST_ and  requests are available for those classes:
 * **Location** ('name', 'address', 'latitude', 'longtitude')
 * **Tag** ('tagID', 'text')
 
-| Key      | Value Type | Value Description          |
-|----------|------------|----------------------------|
-| tagID    | int        | ID of the tag              |
-| text     | string     | The text values of the tag |
+| Key      | Value Type | Value Description         |
+|----------|------------|---------------------------|
+| tagID    | int        | ID of the tag             |
+| text     | string     | The text value of the tag |
 * **Concert** ('name','location','musician')
 * **MainHall** ('name', 'address', 'capacity')
 
