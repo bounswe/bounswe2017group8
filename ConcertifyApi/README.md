@@ -27,6 +27,11 @@ _GET_ , _POST_ and  requests are available for those classes:
 * **Musician** ('name', 'genre', 'tag')
 * **Location** ('name', 'address', 'latitude', 'longtitude')
 * **Tag** ('tagID', 'text')
+
+| Key      | Value Type | Value Description          |
+|----------|------------|----------------------------|
+| tagID    | int        | ID of the tag              |
+| text     | string     | The text values of the tag |
 * **Concert** ('name','location','musician')
 * **MainHall** ('name', 'address', 'capacity')
 
