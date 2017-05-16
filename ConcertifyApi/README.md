@@ -29,6 +29,12 @@ _GET_ , _POST_ and  requests are available for those classes:
 * **Tag** ('tagID', 'text')
 * **Concert** ('name','location','musician')
 * **MainHall** ('name', 'address', 'capacity')
+
+| Key      | Value Type | Value Description        |
+|----------|------------|--------------------------|
+| name     | string     | Name of the main hall    |
+| address  | string     | Open address of the hall |
+| capacity | int        | Spectator capacity       |
 * **Comment** ('commentID', 'commentOwner', 'content', 'voteCount')
 
 
@@ -68,5 +74,5 @@ Web API Base URL: http://52.59.27.221:8000
 
 |Method|Endpoint|Usage|Returns|Auth|
 |------|--------|-----|-------|----|
-|GET|/mainhalls|Get features of all recorded main event halls|Array of MainHall JSON objects| |
+|GET|/mainhalls|Get features of all recorded main event halls|Array of MainHall objects (JSON)| |
 |POST|/mainhalls/|Save a MainHall object|HTTP_201:Currently saved MainHall object features  HTTP_400:Bad request|Basic Auth|
