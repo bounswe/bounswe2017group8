@@ -4,8 +4,10 @@ Python - Django REST framework is used and to obtain the development environment
 
 ## **Quick Tutorial:**  
 **1.** Install Python
- - On Windows, download from https://www.python.org/downloads and do not forget the check **Add Python to environment variables** (Default is unchecked)  
- - On Linux, Mac: `pip install django`  
+ - On Windows and Mac, download from [here](https://www.python.org/downloads) and do not forget the check **Add Python to environment variables** for Windows (Default is unchecked)
+ 
+ - For other platforms : Check [here](https://docs.python.org/3/using/unix.html).
+
 
 From command-line,  
 **2.** `pip install django`  
@@ -20,8 +22,8 @@ From command-line,
  The next command shall run the project as a local server:  
 **7.** `python manage.py runserver`  
 Now, API is accessible via http://127.0.0.1:8000/. Data shall be in JSON format.  
-_GET_ , _POST_ and _DELETE_ requests are available for those classes:
-* **User** ('name', 'username', 'location', 'favorite_musician')
+_GET_ , _POST_ and  requests are available for those classes:
+* **User** ('name', 'username', 'location', 'favorite_musician') ( _DELETE_ request is also available)
 * **Musician** ('name', 'genre', 'tag')
 * **Location** ('name', 'address', 'latitude', 'longtitude')
 * **Tag** ('tagID', 'text')
@@ -60,8 +62,11 @@ Existing unit test classes and their corresponding test methods are:
 **5. MainHallTestCase**
 * test_list_mainhall
 
-## **Enpoint Reference:**
-|Method|Endpoint|Usage|Returns|
-|------|--------|-----|-------|
-|GET||||
-|POST||||
+## **Endpoint Reference:**
+
+Web API Base URL: http://52.59.27.221:8000
+
+|Method|Endpoint|Usage|Returns|Auth|
+|------|--------|-----|-------|----|
+|GET|/mainhalls|Get features of all recorded main event halls|Array of MainHall JSON objects| |
+|POST|/mainhalls/|Save a MainHall object|HTTP_201:Currently saved MainHall object features  HTTP_400:Bad request|Basic Auth|
