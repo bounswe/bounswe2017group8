@@ -1,5 +1,22 @@
 # Concertify API
 
+## **Endpoint Reference:**
+
+Web API Base URL: http://52.59.27.221
+
+|Method|Endpoint|Usage|Returns|Auth|
+|------|--------|-----|-------|----|
+|GET|/mainhalls|Get features of all recorded main event halls|Array of MainHall objects (JSON)| |
+|POST|/mainhalls/|Save a MainHall object|HTTP_201:Currently saved MainHall object features </br>  HTTP_400:Bad request|Basic Auth|
+|GET|/tags|Get features of all recorded tags|Array of Tag objects (JSON)| |
+|POST|/tags/|Save a Tag object|HTTP_201:Currently saved Tag object features  HTTP_400:Bad request|Basic Auth|
+|GET|/locations|Get features of all recorded locations|Array of Location objects (JSON)| |
+|POST|/locations/|Save a Location object|HTTP_201:Currently saved Location object features  HTTP_400:Bad request|Basic Auth|
+|GET|/users|Get features of all recorded users|Array of User objects (JSON)| |
+|POST|/users/|Save a User object|HTTP_201:Currently saved User object features  HTTP_400:Bad request|Basic Auth|
+***
+</br>
+
 Python - Django REST framework is used and to obtain the development environment the following page may be checked: http://www.django-rest-framework.org/#installation
 
 ## **Quick Tutorial:**  
@@ -111,18 +128,3 @@ Existing unit test classes and their corresponding test methods are:
 
 **5. MainHallTestCase**
 * test_list_mainhall
-
-## **Endpoint Reference:**
-
-Web API Base URL: http://52.59.27.221
-
-|Method|Endpoint|Usage|Returns|Auth|
-|------|--------|-----|-------|----|
-|GET|/mainhalls|Get features of all recorded main event halls|Array of MainHall objects (JSON)| |
-|POST|/mainhalls/|Save a MainHall object|HTTP_201:Currently saved MainHall object features  HTTP_400:Bad request|Basic Auth|
-|GET|/tags|Get features of all recorded tags|Array of Tag objects (JSON)| |
-|POST|/tags/|Save a Tag object|HTTP_201:Currently saved Tag object features  HTTP_400:Bad request|Basic Auth|
-|GET|/locations|Get features of all recorded locations|Array of Location objects (JSON)| |
-|POST|/locations/|Save a Location object|HTTP_201:Currently saved Location object features  HTTP_400:Bad request|Basic Auth|
-|GET|/users|Get features of all recorded users|Array of User objects (JSON)| |
-|POST|/users/|Save a User object|HTTP_201:Currently saved User object features  HTTP_400:Bad request|Basic Auth|
