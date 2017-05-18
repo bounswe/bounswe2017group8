@@ -124,3 +124,5 @@ Web API Base URL: http://52.59.27.221
 |POST|/tags/|Save a Tag object|HTTP_201:Currently saved Tag object features  HTTP_400:Bad request|Basic Auth|
 |GET|/locations|Get features of all recorded locations|Array of Location objects (JSON)| |
 |POST|/locations/|Save a Location object|HTTP_201:Currently saved Location object features  HTTP_400:Bad request|Basic Auth|
+|GET|/users|Get features of all recorded users|Array of User objects (JSON)| |
+|POST|/users/|Save a User object|HTTP_201:Currently saved User object features  HTTP_400:Bad request|Basic Auth|
