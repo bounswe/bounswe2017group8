@@ -24,13 +24,13 @@ From command-line,
 Now, API is accessible via http://127.0.0.1:8000/. Data shall be in JSON format.  
 _GET_ , _POST_ and  requests are available for those classes:
 * **User** ('name', 'username', 'location', 'favorite_musician') ( _DELETE_ request is also available)
-| Key        | Value Type | Value Description        |
-|------------|------------|--------------------------|
-| name       | string     | Name of the user         |
-| username   | string     | Login name of the user   |
-| location   | string     | Location of the user     |
+| Key               | Value Type | Value Description                    |
+|-------------------|------------|--------------------------------------|
+| name              | string     | Name of the user                     |
+| username          | string     | Login name of the user               |
+| location          | string     | Location of the user                 |
+| favorite_musician | string     | Name of the user's favorite musician |
 
-| favorite_musician | string        | Name of the user's favorite musician |
 * **Musician** ('name', 'genre', 'tag')
 | Key        | Value Type | Value Description                           |
 |------------|------------|---------------------------------------------|
