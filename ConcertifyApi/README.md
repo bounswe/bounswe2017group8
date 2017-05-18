@@ -24,51 +24,58 @@ From command-line,
 Now, API is accessible via http://127.0.0.1:8000/. Data shall be in JSON format.  
 _GET_ , _POST_ and  requests are available for those classes:
 * **User** ('name', 'username', 'location', 'favorite_musician') ( _DELETE_ request is also available)
+
 | Key               | Value Type | Value Description                    |
-|-------------------|------------|--------------------------------------|
+| ----------------- | ---------- | ------------------------------------ |
 | name              | string     | Name of the user                     |
 | username          | string     | Login name of the user               |
 | location          | string     | Location of the user                 |
 | favorite_musician | string     | Name of the user's favorite musician |
 
 * **Musician** ('name', 'genre', 'tag')
+
 | Key        | Value Type | Value Description                           |
-|------------|------------|---------------------------------------------|
+| ---------- | ---------- | ------------------------------------------- |
 | name       | string     | Name of the Musician                        |
 | genre      | string     | Genre of the Musician in which they perform |
 | tag        | string     | Related tags for this Musician              |
 
 * **Location** ('name', 'address', 'latitude', 'longtitude')
+
 | Key        | Value Type | Value Description            |
-|------------|------------|------------------------------|
+| ---------- | ---------- | ---------------------------- |
 | name       | string     | Name of the location         |
 | address    | string     | Open address of the location |
 | latitude   | float      | Latitude of the address      |
 | longtitude | float      | Longtitude of the address    |
 
 * **Tag** ('tagID', 'text')
+
 | Key      | Value Type | Value Description         |
-|----------|------------|---------------------------|
+| -------- | ---------- | ------------------------- |
 | tagID    | int        | ID of the tag             |
 | text     | string     | The text value of the tag |
 
 * **Concert** ('name','location','musician')
+
 | Key        | Value Type | Value Description                           |
-|------------|------------|---------------------------------------------|
+| ---------- | ---------- | ------------------------------------------- |
 | name       | string     | Name of the event                           |
 | location   | string     | Location of the user                        |
 | musician   | string     | List of musicians taking place in the event |
 
 * **MainHall** ('name', 'address', 'capacity')
+
 | Key      | Value Type | Value Description        |
-|----------|------------|--------------------------|
+| -------- |----------- | ------------------------ |
 | name     | string     | Name of the main hall    |
 | address  | string     | Open address of the hall |
 | capacity | int        | Spectator capacity       |
 
 * **Comment** ('commentID', 'commentOwner', 'content', 'voteCount')
+
 | Key         | Value Type | Value Description                             |
-|-------------|------------|-----------------------------------------------|
+| ----------- | ---------- | --------------------------------------------- |
 | commentID   | int        | ID number of the Comment                      |
 | commentOwner| string     | The User who has written this Comment         |
 | content     | string     | The text content of this Content              |
